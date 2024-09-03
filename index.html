@@ -26,6 +26,8 @@
     </div>
     <div class="button-wrap">
       <button id="translate" onclick="translateHtml()">转换信息</button>
+      <button id="edit" onclick="editContent()">编辑表格</button>
+      <button id="config" onclick="configContent()">配置数据</button>
       <button id="export" onclick="copyContent()">复制表格</button>
       <button id="export" onclick="exportToDocx()">导出文档</button>
       <button id="clear" onclick="clearContent()">清除内容</button>
@@ -49,23 +51,24 @@
         <div class="petinfo-wrap">
           <table id="infoTable">
               <tr>
-                  <td><span>宠主名字：${petInfo.owner || '-'}</span></td>
-                  <td><span>宠物名称：${petInfo.petName || '-'}</span></td>
+                  <td><span>宠主名字：${petInfo.owner}</span></td>
+                  <td><span>宠物名称：${petInfo.petName}</span></td>
               </tr>
               <tr>
-                  <td><span>动物种类：${petInfo.petType || '-'}</span></td>
-                  <td><span>品种：${petInfo.breed || '-'}</span></td>
+                  <td><span>动物种类：${petInfo.petType}</span></td>
+                  <td><span>品种：${petInfo.breed}</span></td>
               </tr>
               <tr>   
-                  <td><span>性别：${petInfo.sex || '-'}</span></td>
-                  <td><span>年龄：${petInfo.age || '-'}</span></td>
+                  <td><span>性别：${petInfo.sex}</span></td>
+                  <td><span>年龄：${petInfo.age}</span></td>
               </tr>
               <tr>
-                  <td><span>病例号：${petInfo.caseNo || '-'}</span></td>
-                  <td><span>报告日期：${petInfo.date || '-'}</span></td>
+                  <td><span>病例号：${petInfo.caseNo}</span></td>
+                  <td><span>报告日期：${petInfo.date}</span></td>
               </tr>
               <tr>
-                  <td><span>兽医师：${petInfo.doctor || '-'}</span></td>
+                  <td><span>兽医师：${petInfo.doctor}</span></td>
+                  <td><span>样本类型及症状：${petInfo.caseType}</span></td>
               </tr>
           </table>
         </div>
@@ -73,7 +76,7 @@
     `;
     document.getElementById('output-content').innerHTML = outputHtml;
     
-    if(type !== 'init') {
+    if(type !== 'init' && type !== 'change') {
       showMessageTips('转换成功！');
     }
   }
@@ -90,6 +93,7 @@
       sex: '',         // 性别
       caseNo: '',        // 病例号
       doctor: '',     // 兽医师
+      caseType: '',     // 样本类型及症状
       weight: '',     // 体重
       passCase: '',    // 既往史
       date: getDate(),      // 报告日期
@@ -131,6 +135,12 @@
         console.log(partsArr);
     });
     return petInfo;
+  }
+  function editContent() {
+    showMessageTips('暂未开放，敬请期待！');
+  }
+  function configContent() {
+    showMessageTips('暂未开放，敬请期待！');
   }
   function exportToDocx() {
     const content = document.getElementById('output-content').innerHTML;
@@ -196,6 +206,12 @@
   window.onload = function () {
     translateHtml('init');
   }
+  document.addEventListener('DOMContentLoaded', function() {
+    const textarea = document.getElementById('input-content');
+    textarea.addEventListener('input', function() {
+      translateHtml('change');
+    });
+});
 </script>
 <style>
   *{
@@ -222,8 +238,7 @@
   }
   .conent{
     width: 48%;
-    min-height: 31.25rem;
-    max-height: 50rem;
+    min-height: 20rem;
     border: .125rem solid #000;
     border-radius: 6px;
   }
@@ -236,13 +251,15 @@
     outline: none;
     resize: none;
     border-radius: 6px;
+    font-size: 18px;
+    padding: 20px;
   }
   .split-wrap{
-    margin-top: 10rem;
+    margin-top: 7rem;
   }
   .button-wrap {
-    width: 28.75rem;
-    margin: 2.875rem auto 0;
+    width: 40rem;
+    margin: 4rem auto 0;
     display: flex;
     justify-content: space-between;
   }
@@ -277,7 +294,7 @@
   }
   table {
     width: 70%;
-    margin: 20px auto;
+    margin: 80px auto;
     border-collapse: collapse; 
     border: 1px solid black;
   }
