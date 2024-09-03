@@ -329,4 +329,42 @@
   #messageTips.show {
     display: block;
   }
+  @media (max-width: 767px) {
+    .container {
+      max-width: 90% !important;
+    }
+    .wrap-content {
+        flex-direction: column !important;
+    }
+    .split-wrap{
+      margin-top: 4rem;
+        transform: rotate(90deg);
+        height: 50px;
+        width: 150px;
+        margin-left: 35%;
+    }
+    .conent{
+      width: 100% !important;
+    }
+    .button-wrap{
+      width: 90% !important;
+      height: 100px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: space-between;
+    }
+    table {
+      width: 100%;
+    }
+    footer{
+      width: 98%;
+      height: 50px;
+      line-height: 50px;
+      position: relative;
+    }
+    #messageTips {
+      margin-top: 50px;
+    }
+  }
 </style>
