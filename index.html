@@ -7,13 +7,16 @@
 </head>
 <body>
   <div class="container">
-    <h1>宠物文本信息提取工具</h1>
-    <p>请将宠物信息粘贴在左半边区域，点击转换文档即可生成完整宠物信息</p>
+    <h2>宠物文本信息提取工具</h2>
+    <p>请将宠物信息粘贴在左半边区域，点击转换文档即可生成宠物信息表格</p>
     <p>您可以继续选择一键复制文本或者导出docx文档，或者清除内容继续下一条内容生成</p>
-    <h3 style="color: red; text-align: center;">注意⚠️： 本工具不收集任何数据上传服务端，仅供学习使用，不可商用！</h3>
+    <h4 style="color: red; text-align: center;">注意⚠️： 本工具不收集任何数据上传服务端，仅供学习使用，不可商用！</h4>
     <div class="wrap-content">
       <div class="input-content conent">
-        <textarea id="input-content" rows="10" cols="50"></textarea>
+        <textarea id="input-content" rows="10" cols="50" placeholder="请将宠物信息粘贴在此处"></textarea>
+      </div>
+      <div class="split-wrap">
+        <svg t="1725353861025" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="12855" width="96" height="96"><path d="M648.262942 279.368732 648.262942 739.895407 959.347003 509.630023ZM430.240393 383.337665l180.799786 0 0 255.247358-180.799786 0 0-255.247358ZM244.122485 383.337665l122.30658 0 0 255.247358-122.30658 0 0-255.247358ZM63.322699 383.337665l90.399893 0 0 255.247358-90.399893 0 0-255.247358Z" fill="#272636" p-id="12856"></path></svg>
       </div>
       <div id="output-content" class="conent"></div>
     </div>
@@ -158,8 +161,10 @@
     margin: 0;
     padding: 0;
   }
-  h1 {
+  h2 {
     text-align: center;
+    margin-bottom: 1.25rem;
+    margin-top: 1.25rem;
   }
   p{
     text-align: center;
@@ -179,6 +184,7 @@
     min-height: 31.25rem;
     max-height: 50rem;
     border: .125rem solid #000;
+    border-radius: 6px;
   }
   .input-content textarea {
     width: 100%;
@@ -188,12 +194,25 @@
     border: none;
     outline: none;
     resize: none;
+    border-radius: 6px;
+  }
+  .split-wrap{
+    margin-top: 10rem;
   }
   .button-wrap {
-    width: 18.75rem;
-    margin: 1.875rem auto 0;
+    width: 28.75rem;
+    margin: 2.875rem auto 0;
     display: flex;
     justify-content: space-between;
+  }
+  .button-wrap button{
+    cursor: pointer;
+    width: 5rem;
+    height: 2rem;
+    background-color: rgb(8, 143, 246);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
   }
   .petinfo-container{
     width: 100%;
