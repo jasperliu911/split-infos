@@ -44,31 +44,30 @@
   function translateHtml(type) {
     let content = document.getElementById('input-content').value;
     const petInfo = splitInfoItem(content);
-    const space = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
     const outputHtml = 
     `
       <div class="petinfo-container">
         <div class="petinfo-wrap">
           <table id="infoTable">
               <tr>
-                  <td><span>宠主名字：${petInfo.owner}</span></td>
-                  <td><span>宠物名称：${petInfo.petName}</span></td>
+                  <td><span>动物主人：${petInfo.owner}</span></td>
+                  <td><span>&nbsp;&nbsp;宠物昵称：${petInfo.petName}</span></td>
               </tr>
               <tr>
                   <td><span>动物种类：${petInfo.petType}</span></td>
-                  <td><span>品种：${petInfo.breed}</span></td>
+                  <td><span>&nbsp;&nbsp;品种：${petInfo.breed}</span></td>
               </tr>
               <tr>   
                   <td><span>性别：${petInfo.sex}</span></td>
-                  <td><span>年龄：${petInfo.age}</span></td>
+                  <td><span>&nbsp;&nbsp;年龄：${petInfo.age}</span></td>
               </tr>
               <tr>
                   <td><span>病例号：${petInfo.caseNo}</span></td>
-                  <td><span>报告日期：${petInfo.date}</span></td>
+                  <td><span>&nbsp;&nbsp;报告日期：${petInfo.date}</span></td>
               </tr>
               <tr>
-                  <td><span>兽医师：${petInfo.doctor}</span></td>
-                  <td><span>样本类型及症状：${petInfo.caseType}</span></td>
+                  <td><span>送检医生：${petInfo.doctor}</span></td>
+                  <td><span>&nbsp;&nbsp;样本类型及症状：${petInfo.caseType}</span></td>
               </tr>
           </table>
         </div>
@@ -293,14 +292,16 @@
     justify-content: space-between;
   }
   table {
-    width: 70%;
+    width: 415px;  
     margin: 80px auto;
     border-collapse: collapse; 
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    font-family: "SimSun", "宋体", serif;
+    font-size: 10.5pt;
   }
   th, td {
       width: 50%;
-      border: 1px solid black; 
+      /* border: 1px solid black;  */
   }
   footer{
     width: 100%;
