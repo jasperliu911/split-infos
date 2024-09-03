@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>提取文本信息工具</title>
+    <link rel="Shortcut Icon" href="favicon.ico">
 </head>
 <body>
+  <div id="messageTips" class="message-tips">
+    <p id="messageText"></p>
+  </div>
   <div class="container">
     <h2>宠物文本信息提取工具</h2>
     <p>请将宠物信息粘贴在左半边区域，点击转换文档即可生成宠物信息表格</p>
@@ -35,7 +39,7 @@
 <script src="https://cdn.jsdelivr.net/npm/html-docx-js/dist/html-docx.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/file-saver/dist/FileSaver.min.js"></script>
 <script>
-  function translateHtml() {
+  function translateHtml(type) {
     let content = document.getElementById('input-content').value;
     const petInfo = splitInfoItem(content);
     const space = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -68,6 +72,10 @@
       </div>
     `;
     document.getElementById('output-content').innerHTML = outputHtml;
+    
+    if(type !== 'init') {
+      showMessageTips('转换成功！');
+    }
   }
   function splitInfoItem(content) {
     let partsArr = content.split(/[|\uFF5C、，\s]+/);
@@ -132,14 +140,34 @@
   }
   async function copyContent() {
     const table = document.getElementById('infoTable');
-    const tableData = table.outerHTML; // 获取表格的HTML
+    if (window.getSelection) { // 用于非IE浏览器
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(table);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    } else if (document.body.createTextRange) { // 用于IE浏览器
+        const range = document.body.createTextRange();
+        range.moveToElementText(table);
+        range.select();
+    } else{
+        showMessageTips('无法复制!');
+    }
 
-    // 使用 Clipboard API 复制表格
+    // 尝试执行复制操作
     try {
-        await navigator.clipboard.writeText(tableData);
-        alert('表格已复制到剪贴板');
+        const successful = document.execCommand('copy');
+        const msg = successful ? '成功！' : '失败！';
+        showMessageTips('复制文本' + msg);
     } catch (err) {
-        console.error('无法复制表格', err);
+      showMessageTips('无法复制!');
+    }
+
+    // 取消选中文本
+    if (window.getSelection) {
+        window.getSelection().removeAllRanges();
+    } else if (document.body.createTextRange) {
+        document.body.createTextRange().select();
     }
   }
   function clearContent() {
@@ -154,6 +182,19 @@
 
     let date = `${year}-${month}-${day}`;
     return date;
+  }
+  function showMessageTips(message) {
+    const messageBox = document.getElementById('messageTips');
+    const messageText = document.getElementById('messageText');
+    messageBox.classList.add('show');
+    messageText.textContent = message;
+    setTimeout(() => {
+      messageBox.classList.remove('show');
+    }, 2000);
+  }
+
+  window.onload = function () {
+    translateHtml('init');
   }
 </script>
 <style>
@@ -253,5 +294,22 @@
     line-height: 100px;
     position: fixed;
     bottom: 0;
+  }
+  #messageTips {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 20px;
+    transform: translate(-50%, -50%);
+    padding: 5px 50px;
+    background-color: rgba(8, 143, 246, 0.8);
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    color: #fff;
+    text-align: center;
+  }
+  #messageTips.show {
+    display: block;
   }
 </style>
